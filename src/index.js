@@ -43,7 +43,7 @@ app.use("/", categories);
 
 app.use(errorHandler);
 
-app.listen(3001, () => {
+app.listen(5000, () => {
   console.log("hi");
   dbConnect();
 });
