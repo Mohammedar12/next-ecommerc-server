@@ -21,7 +21,7 @@ app.use("/webhook", express.raw({ type: "application/json" }), webhook);
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://next-ecommerc-mocha.vercel.app/",
     credentials: true,
   })
 );
