@@ -21,7 +21,7 @@ app.use("/webhook", express.raw({ type: "application/json" }), webhook);
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://next-ecommerc-mocha.vercel.app/",
+    origin: "https://melodic-chebakia-231801.netlify.app",
     credentials: true,
   })
 );
