@@ -46,5 +46,4 @@ app.use(errorHandler);
 app.listen(process.env.PORT || 5000, () => {
   console.log("hi");
   dbConnect();
-  res.send("working");
 });
