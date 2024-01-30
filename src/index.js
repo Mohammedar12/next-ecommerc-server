@@ -34,6 +34,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 // Configure the cookie-session middleware
+app.use((req, res, next) => {
+  console.log("Before cookie-session:", req.session);
+  next();
+});
 app.use(
   cookieSession({
     name: "session",
@@ -46,6 +50,10 @@ app.use(
         : "localhost",
   })
 );
+app.use((req, res, next) => {
+  console.log("After cookie-session:", req.session);
+  next();
+});
 
 app.use("/order", order);
 app.use("/", user);
