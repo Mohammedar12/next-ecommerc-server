@@ -21,8 +21,8 @@ app.use("/webhook", express.raw({ type: "application/json" }), webhook);
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
-    // origin: "https://mynextappstore.netlify.app",
+    // origin: "http://localhost:3000",
+    origin: "https://mynextappstore.netlify.app",
     credentials: true,
   })
 );
@@ -32,9 +32,9 @@ app.use(
     name: "session",
     keys: ["secretKey1"],
     maxAge: 24 * 60 * 60 * 1000,
-    sameSite: "None", // Set to 'None' for cross-site requests
+    // sameSite: "None", // Set to 'None' for cross-site requests
     secure: process.env.NODE_ENV === "production", // Set to true in production
-    httpOnly: true, // Set to false if JavaScript needs to access the cookie
+    httpOnly: false, // Set to false if JavaScript needs to access the cookie
   })
 );
 
