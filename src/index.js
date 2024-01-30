@@ -17,6 +17,9 @@ const errorHandler = require("./middleware/middleware");
 
 const MongoStore = require("connect-mongo");
 
+const expressSession = require("express-session");
+const FileStore = require("session-file-store")(expressSession);
+
 app.use("/webhook", express.raw({ type: "application/json" }), webhook);
 app.use(express.json());
 
@@ -38,25 +41,35 @@ app.use((req, res, next) => {
   console.log("Before cookie-session:", req.session);
   next();
 });
+
+// app.use(
+//   cookieSession({
+//     name: "session",
+//     keys: ["secretKey1"],
+//     maxAge: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
+//     secure: false, // Set to true in production
+//     domain: "localhost",
+//   })
+// );
+
 app.use(
-  cookieSession({
+  expressSession({
     name: "session",
-    keys: ["secretKey1"],
-    maxAge: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
-    secure: process.env.NODE_ENV === "production", // Set to true in production
-    domain:
-      process.env.NODE_ENV === "production"
-        ? ".mynextappstore.netlify.app"
-        : "localhost",
+    secret: "secretKey1",
+    resave: false,
+    saveUninitialized: true,
+    store: new FileStore(),
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000,
+      secure: false,
+      domain: "localhost",
+    },
   })
 );
+
 app.use((req, res, next) => {
   console.log("After cookie-session:", req.session);
   next();
-});
-app.use((err, req, res, next) => {
-  console.error("Error:", err);
-  res.status(500).send("Internal Server Error");
 });
 
 app.use("/order", order);
