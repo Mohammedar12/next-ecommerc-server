@@ -21,7 +21,8 @@ app.use("/webhook", express.raw({ type: "application/json" }), webhook);
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://melodic-chebakia-231801.netlify.app",
+    // origin: "http://localhost:3000",
+    origin: "https://mynextappstore.netlify.app",
     credentials: true,
   })
 );
