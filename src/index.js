@@ -19,13 +19,20 @@ const MongoStore = require("connect-mongo");
 
 app.use("/webhook", express.raw({ type: "application/json" }), webhook);
 app.use(express.json());
-app.use(
-  cors({
-    // origin: "http://localhost:3000",
-    origin: "https://mynextappstore.netlify.app",
-    credentials: true,
-  })
-);
+
+const corsOptions = {
+  origin: [
+    "https://mynextappstore.netlify.app",
+    "http://localhost:3000",
+    "https://next-ecommerc-mocha.vercel.app/",
+  ],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  exposedHeaders: "Content-Length, X-Content-Example",
+  maxAge: 86400,
+};
+
+app.use(cors(corsOptions));
 // Configure the cookie-session middleware
 app.use(
   cookieSession({
