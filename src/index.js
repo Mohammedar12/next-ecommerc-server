@@ -24,7 +24,7 @@ const corsOptions = {
   origin: [
     "https://mynextappstore.netlify.app",
     "http://localhost:3000",
-    "https://next-ecommerc-mocha.vercel.app/",
+    "https://next-ecommerc-mocha.vercel.app",
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
@@ -39,9 +39,9 @@ app.use(
     name: "session",
     keys: ["secretKey1"],
     maxAge: 24 * 60 * 60 * 1000,
-    sameSite: "None", // Set to 'None' for cross-site requests
-    secure: process.env.NODE_ENV === "production", // Set to true in production
-    httpOnly: false, // Set to false if JavaScript needs to access the cookie
+    // sameSite: "None", // Set to 'None' for cross-site requests
+    secure: false, // Set to true in production
+    httpOnly: true, // Set to false if JavaScript needs to access the cookie
   })
 );
 

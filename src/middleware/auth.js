@@ -16,6 +16,7 @@ const isAuthenticated = (req, res, next) => {
   if (tokensMatch) {
     if (sess.user) {
       req.user = sess.user;
+      console.log(req.user);
     }
 
     next();
