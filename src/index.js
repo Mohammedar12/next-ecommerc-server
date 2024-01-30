@@ -39,8 +39,10 @@ app.use(
     name: "session",
     keys: ["secretKey1"],
     maxAge: 24 * 60 * 60 * 1000,
+    domain:
+      process.env.NODE_ENV === "production" ? ".netlify.app" : "localhost",
     // sameSite: "None", // Set to 'None' for cross-site requests
-    secure: true, // Set to true in production
+    secure: process.env.NODE_ENV === "production", // Set to true in production
     httpOnly: true, // Set to false if JavaScript needs to access the cookie
   })
 );
