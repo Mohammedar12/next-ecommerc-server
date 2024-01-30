@@ -39,8 +39,11 @@ app.use(
     name: "session",
     keys: ["secretKey1"],
     maxAge: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
-    secure: true, // Set to true since your application is served over HTTPS
-    domain: "mynextappstore.netlify.app", // Set to your Netlify domain
+    secure: process.env.NODE_ENV === "production", // Set to true in production
+    domain:
+      process.env.NODE_ENV === "production"
+        ? ".mynextappstore.netlify.app"
+        : "localhost",
   })
 );
 
