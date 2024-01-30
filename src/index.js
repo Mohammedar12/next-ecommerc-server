@@ -61,8 +61,11 @@ app.use(
     store: new FileStore(),
     cookie: {
       maxAge: 24 * 60 * 60 * 1000,
-      secure: false,
-      domain: "localhost",
+      secure: process.env.NODE_ENV === "production",
+      domain:
+        process.env.NODE_ENV === "production"
+          ? ".mynextappstore.netlify.app"
+          : "localhost",
     },
   })
 );
