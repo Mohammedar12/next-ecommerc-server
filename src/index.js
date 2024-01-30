@@ -33,7 +33,7 @@ app.use(
     keys: ["secretKey1"],
     maxAge: 24 * 60 * 60 * 1000,
     secure: process.env.NODE_ENV === "production", // Set to true in production
-    httpOnly: false, // Set to false if JavaScript needs to access the cookie
+    httpOnly: true, // Set to false if JavaScript needs to access the cookie
   })
 );
 
