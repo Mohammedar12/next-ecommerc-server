@@ -44,7 +44,7 @@ module.exports = {
 
     req.session.user = user;
 
-    console.log(user, "i'm user ");
+    console.log(req.session, "i'm user ");
 
     return res.json({
       name: user.name,
