@@ -24,7 +24,7 @@ app.use("/webhook", express.raw({ type: "application/json" }), webhook);
 app.use(express.json());
 
 const corsOptions = {
-  origin: ["http://next-ecmrc.com", "http://localhost:3000"],
+  origin: ["https://next-ecmrc.com", "http://localhost:3000"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   exposedHeaders: "Content-Length, X-Content-Example",
