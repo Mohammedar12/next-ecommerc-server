@@ -61,6 +61,7 @@ app.use(
       domain:
         process.env.NODE_ENV === "production" ? "next-ecmrc.com" : "localhost",
     },
+    sameSite: "Lax", // Set SameSite attribute to Lax
   })
 );
 
