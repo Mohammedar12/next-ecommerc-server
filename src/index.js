@@ -57,10 +57,10 @@ app.use(
     store: new FileStore(),
     cookie: {
       maxAge: 24 * 60 * 60 * 1000,
-      secure: process.env.NODE_ENV === "production",
-      domain:
-        process.env.NODE_ENV === "production" ? "next-ecmrc.com" : "localhost",
-      sameSite: "Lax", // Set SameSite attribute to Lax
+      // secure: process.env.NODE_ENV === "production",
+      // domain:
+      //   process.env.NODE_ENV === "production" ? "next-ecmrc.com" : "localhost",
+      // sameSite: "Lax", // Set SameSite attribute to Lax
     },
   })
 );
