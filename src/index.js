@@ -24,11 +24,7 @@ app.use("/webhook", express.raw({ type: "application/json" }), webhook);
 app.use(express.json());
 
 const corsOptions = {
-  origin: [
-    "https://mynextappstore.netlify.app",
-    "http://localhost:3000",
-    "https://next-ecommerc-mocha.vercel.app",
-  ],
+  origin: ["http://next-ecmrc.com", "http://localhost:3000"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   exposedHeaders: "Content-Length, X-Content-Example",
@@ -63,9 +59,7 @@ app.use(
       maxAge: 24 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV === "production",
       domain:
-        process.env.NODE_ENV === "production"
-          ? ".mynextappstore.netlify.app"
-          : "localhost",
+        process.env.NODE_ENV === "production" ? "next-ecmrc.com" : "localhost",
     },
   })
 );
