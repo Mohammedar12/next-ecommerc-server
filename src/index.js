@@ -19,6 +19,7 @@ const MongoStore = require("connect-mongo");
 
 const expressSession = require("express-session");
 const FileStore = require("session-file-store")(expressSession);
+const path = require("path");
 
 app.use("/webhook", express.raw({ type: "application/json" }), webhook);
 app.use(express.json());
@@ -48,13 +49,25 @@ app.use((req, res, next) => {
 //   })
 // );
 
+const sessionStore = new (sessionFileStore(expressSession))({
+  path: path.join(__dirname, "sessions"),
+});
+
+// Ensure the sessions directory exists
+sessionStore.on("error", function (error) {
+  if (error.code === "ENOENT") {
+    // Create the directory
+    fs.mkdirSync(path.join(__dirname, "sessions"));
+  }
+});
+
 app.use(
   expressSession({
     name: "session",
     secret: "secretKey1",
     resave: false,
     saveUninitialized: true,
-    store: new FileStore(),
+    store: sessionStore,
     cookie: {
       maxAge: 24 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV === "production",
