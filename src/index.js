@@ -18,7 +18,7 @@ const errorHandler = require("./middleware/middleware");
 const MongoStore = require("connect-mongo");
 
 const expressSession = require("express-session");
-const FileStore = require("session-file-store")(expressSession);
+const sessionFileStore = require("session-file-store");
 const path = require("path");
 
 app.use("/webhook", express.raw({ type: "application/json" }), webhook);
