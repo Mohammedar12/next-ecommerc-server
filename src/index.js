@@ -27,7 +27,7 @@ const corsOptions = {
   origin: ["https://next-ecmrc.com", "http://localhost:3000"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
-  exposedHeaders: "Content-Length, X-Content-Example",
+  // exposedHeaders: "Content-Length, X-Content-Example",
   maxAge: 86400,
 };
 
