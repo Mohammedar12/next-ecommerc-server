@@ -46,6 +46,7 @@ app.use((req, res, next) => {
 // );
 
 app.use(
+  ["/login", "/sign-up"],
   expressSession({
     name: "session",
     secret: "secretKey1",
