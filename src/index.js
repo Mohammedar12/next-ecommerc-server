@@ -46,17 +46,16 @@ app.use((req, res, next) => {
 // );
 
 app.use(
-  ["/login", "/sign-up"],
   expressSession({
     name: "session",
     secret: "secretKey1",
     resave: false,
     saveUninitialized: true,
-    // store: new MongoStore({
-    //   mongoUrl: process.env.DB_URI,
-    //   mongooseConnection: mongoose.connection,
-    //   collection: "sessions",
-    // }),
+    store: new MongoStore({
+      mongoUrl: process.env.DB_URI,
+      mongooseConnection: mongoose.connection,
+      collection: "sessions",
+    }),
     cookie: {
       maxAge: 10 * 60 * 1000,
       // secure: process.env.NODE_ENV === "production",
