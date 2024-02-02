@@ -14,9 +14,9 @@ const categories = require("./route/categories");
 const webhook = require("./route/webhook");
 const errorHandler = require("./middleware/middleware");
 
+const expressSession = require("express-session");
 const MongoStore = require("connect-mongo")(expressSession);
 
-const expressSession = require("express-session");
 const Session = require("./models/session");
 
 app.use("/webhook", express.raw({ type: "application/json" }), webhook);
