@@ -18,8 +18,7 @@ const errorHandler = require("./middleware/middleware");
 const MongoStore = require("connect-mongo");
 
 const expressSession = require("express-session");
-const sessionFileStore = require("session-file-store");
-const path = require("path");
+const Session = require("./models/session");
 
 app.use("/webhook", express.raw({ type: "application/json" }), webhook);
 app.use(express.json());
@@ -49,25 +48,16 @@ app.use((req, res, next) => {
 //   })
 // );
 
-const sessionStore = new (sessionFileStore(expressSession))({
-  path: path.join(__dirname, "sessions"),
-});
-
-// Ensure the sessions directory exists
-sessionStore.on("error", function (error) {
-  if (error.code === "ENOENT") {
-    // Create the directory
-    fs.mkdirSync(path.join(__dirname, "sessions"));
-  }
-});
-
 app.use(
   expressSession({
     name: "session",
     secret: "secretKey1",
     resave: false,
     saveUninitialized: true,
-    store: sessionStore,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      collection: "sessions",
+    }),
     cookie: {
       maxAge: 15 * 100,
       // maxAge: 24 * 60 * 60 * 1000,
