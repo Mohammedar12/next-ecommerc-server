@@ -1,6 +1,5 @@
 const express = require("express");
-// const session = require("express-session");
-const cookieSession = require("cookie-session");
+const mongoose = require("mongoose");
 
 const cors = require("cors");
 const app = express();
@@ -27,7 +26,6 @@ const corsOptions = {
   origin: ["https://next-ecmrc.com", "http://localhost:3000"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
-  // exposedHeaders: "Content-Length, X-Content-Example",
   maxAge: 86400,
 };
 
