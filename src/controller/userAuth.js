@@ -62,7 +62,7 @@ module.exports = {
         res.status(500).send("Internal Server Error");
       } else {
         res.clearCookie("session");
-        res.redirect("/");
+        res.json("done");
       }
     });
   }),
