@@ -55,6 +55,7 @@ app.use(
       mongoUrl: process.env.DB_URI,
       mongooseConnection: mongoose.connection,
       collection: "sessions",
+      expires: 20 * 100,
     }),
     cookie: {
       maxAge: 24 * 60 * 60 * 1000,
