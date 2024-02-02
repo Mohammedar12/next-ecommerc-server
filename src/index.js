@@ -78,10 +78,10 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  console.log("After cookie-session:", req.session);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log("After cookie-session:", req.session);
+//   next();
+// });
 
 app.use("/order", order);
 app.use("/", user);

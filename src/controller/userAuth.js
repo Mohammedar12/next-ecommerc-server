@@ -55,6 +55,17 @@ module.exports = {
       createdAt: user.createdAt,
     });
   }),
+  logout: tryCatch(async (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        res.status(500).send("Internal Server Error");
+      } else {
+        res.clearCookie("session");
+        res.redirect("/");
+      }
+    });
+  }),
   update: tryCatch(async (req, res) => {
     const { id, avatar } = req.body;
     const newData = {
