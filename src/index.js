@@ -15,7 +15,7 @@ const webhook = require("./route/webhook");
 const errorHandler = require("./middleware/middleware");
 
 const expressSession = require("express-session");
-const MongoStore = require("connect-mongo")(expressSession);
+const MongoStore = require("connect-mongo");
 
 const Session = require("./models/session");
 
@@ -53,6 +53,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     store: new MongoStore({
+      mongoUrl: process.env.DB_URI,
       mongooseConnection: mongoose.connection,
       collection: "sessions",
     }),
