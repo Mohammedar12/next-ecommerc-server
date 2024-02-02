@@ -51,13 +51,13 @@ app.use(
     secret: "secretKey1",
     resave: false,
     saveUninitialized: true,
-    store: new MongoStore({
-      mongoUrl: process.env.DB_URI,
-      mongooseConnection: mongoose.connection,
-      collection: "sessions",
-    }),
+    // store: new MongoStore({
+    //   mongoUrl: process.env.DB_URI,
+    //   mongooseConnection: mongoose.connection,
+    //   collection: "sessions",
+    // }),
     cookie: {
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge: 10 * 60 * 1000,
       // secure: process.env.NODE_ENV === "production",
       // domain:
       //   process.env.NODE_ENV === "production" ? "next-ecmrc.com" : "localhost",
