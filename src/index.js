@@ -69,7 +69,8 @@ app.use(
     saveUninitialized: true,
     store: sessionStore,
     cookie: {
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge: 15 * 100,
+      // maxAge: 24 * 60 * 60 * 1000,
       // secure: process.env.NODE_ENV === "production",
       // domain:
       //   process.env.NODE_ENV === "production" ? "next-ecmrc.com" : "localhost",
