@@ -26,7 +26,6 @@ const corsOptions = {
   origin: ["https://next-ecmrc.com", "http://localhost:3000"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
-  maxAge: 86400,
 };
 
 app.use(cors(corsOptions));
