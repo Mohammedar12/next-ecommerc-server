@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 
@@ -5,19 +6,18 @@ const cors = require("cors");
 const app = express();
 const dbConnect = require("./config/DBconnect");
 
-require("dotenv").config();
+const expressSession = require("express-session");
+const MongoStore = require("connect-mongo");
+const session = require("./models/session");
+
 const products = require("./route/products");
 const user = require("./route/user");
 const address = require("./route/address");
 const order = require("./route/order");
 const categories = require("./route/categories");
 const webhook = require("./route/webhook");
+
 const errorHandler = require("./middleware/middleware");
-
-const expressSession = require("express-session");
-const MongoStore = require("connect-mongo");
-
-const Session = require("./models/session");
 
 app.use("/webhook", express.raw({ type: "application/json" }), webhook);
 app.use(express.json());
@@ -29,36 +29,19 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-// Configure the cookie-session middleware
-app.use((req, res, next) => {
-  console.log("Before cookie-session:", req.session);
-  next();
-});
-
-// app.use(
-//   cookieSession({
-//     name: "session",
-//     keys: ["secretKey1"],
-//     maxAge: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
-//     secure: false, // Set to true in production
-//     domain: "localhost",
-//   })
-// );
 
 app.use(
   expressSession({
     name: "session",
-    secret: "secretKey1",
+    secret: process.env.SECRET,
     resave: false,
-    saveUninitialized: true,
-    store: new MongoStore({
+    saveUninitialized: false,
+    store: MongoStore.create({
       mongoUrl: process.env.DB_URI,
       mongooseConnection: mongoose.connection,
-      collection: "sessions",
     }),
     cookie: {
-      maxAge: 10 * 60 * 1000,
-      // secure: process.env.NODE_ENV === "production",
+      maxAge: 60 * 60 * 1000,
       // domain:
       //   process.env.NODE_ENV === "production" ? "next-ecmrc.com" : "localhost",
       sameSite: "Lax", // Set SameSite attribute to Lax
@@ -66,17 +49,11 @@ app.use(
   })
 );
 
-// app.use((req, res, next) => {
-//   console.log("After cookie-session:", req.session);
-//   next();
-// });
-
 app.use("/order", order);
 app.use("/", user);
 app.use("/", products);
 app.use("/", address);
 app.use("/", categories);
-// app.use("/order", order);
 
 app.use(errorHandler);
 

@@ -24,4 +24,4 @@ const sessionSchema = new Schema(
 
 sessionSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 
-module.exports = mongoose.model("sessions", sessionSchema);
+module.exports = mongoose.model("Session", sessionSchema);

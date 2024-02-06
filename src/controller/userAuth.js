@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Session = require("../models/session");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { tryCatch } = require("../utils/tryCatch");
