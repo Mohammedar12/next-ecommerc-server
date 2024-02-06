@@ -10,6 +10,7 @@ const expressSession = require("express-session");
 const MongoStore = require("connect-mongo");
 const session = require("./models/session");
 const crypto = require("crypto");
+const uuid = require("node-uuid");
 
 const products = require("./route/products");
 const user = require("./route/user");
