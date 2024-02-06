@@ -9,6 +9,7 @@ const dbConnect = require("./config/DBconnect");
 const expressSession = require("express-session");
 const MongoStore = require("connect-mongo");
 const session = require("./models/session");
+const crypto = require("crypto");
 
 const products = require("./route/products");
 const user = require("./route/user");
@@ -40,6 +41,13 @@ app.use(
       mongoUrl: process.env.DB_URI,
       mongooseConnection: mongoose.connection,
     }),
+    genid: function (req) {
+      return crypto
+        .createhash("sha256")
+        .update(uuid.v1())
+        .update(crypto.randombytes(256))
+        .digest("hex");
+    },
     cookie: {
       maxAge: 60 * 60 * 1000,
       // domain:
