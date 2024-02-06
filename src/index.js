@@ -42,11 +42,7 @@ app.use(
       mongooseConnection: mongoose.connection,
     }),
     genid: function (req) {
-      return crypto
-        .createhash("sha256")
-        .update(uuid.v1())
-        .update(crypto.randombytes(256))
-        .digest("hex");
+      return uuid.v1();
     },
     cookie: {
       maxAge: 60 * 60 * 1000,
