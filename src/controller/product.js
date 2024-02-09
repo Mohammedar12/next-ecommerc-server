@@ -123,35 +123,4 @@ module.exports = {
 
     res.json(deletedProduct);
   }),
-  // productImages: tryCatch(async (req, res) => {
-  //   const product = await Product.findById(req.params.id);
-
-  //   if (!product) {
-  //     return res.status(404).json({ message: "Product not found" });
-  //   }
-
-  //   const uploader = async (path) => {
-  //     console.log("Before Upload");
-  //     const response = await upload(path, "nextProject/products");
-  //     console.log("After Upload", response); // Add this line
-  //   };
-  //   const urls = [];
-  //   const file = req.files;
-
-  //   for (const file of files) {
-  //     const { path } = file;
-  //     const imgUrl = await uploader(path);
-  //     urls.push(imgUrl);
-  //     fs.unlinkSync(path);
-  //   }
-
-  //   product = await Product.findByIdAndUpdate(req.query.id, {
-  //     images: urls,
-  //   });
-
-  //   res.json({
-  //     data: urls,
-  //     product,
-  //   });
-  // }),
 };
