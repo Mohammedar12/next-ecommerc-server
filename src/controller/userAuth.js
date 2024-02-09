@@ -43,11 +43,19 @@ module.exports = {
 
     const token = await jwt.sign({ id: user._id }, process.env.SECRET);
 
+    let expiry = new Date();
+    expiry.setDate(expiry.getDate() + process.env.MAX_Age);
+    await Session.create({
+      user: user.id,
+      sessionId: req.session.id,
+      expireAt: expiry,
+    });
+
     req.session.user = user;
 
     console.log(req.session, "i'm user ");
 
-    return res.json({
+    return res.status(200).json({
       name: user.name,
       email: user.email,
       token,
@@ -57,14 +65,17 @@ module.exports = {
     });
   }),
   logout: tryCatch(async (req, res) => {
-    req.session.destroy((err) => {
-      if (err) {
-        console.error("Error destroying session:", err);
-        res.status(500).send("Internal Server Error");
-      } else {
-        res.clearCookie("session");
-        res.json("done");
+    if (req?.session) {
+      if (req?.session?.id) {
+        await Session.deleteOne({
+          sessionId: req.session.id,
+        });
       }
+      req.session.destroy();
+    }
+    return res.status(200).json({
+      status: 200,
+      message: "Logged out successfully",
     });
   }),
   update: tryCatch(async (req, res) => {
@@ -96,13 +107,13 @@ module.exports = {
     req.session.user = user;
     // console.log(req);
 
-    return res.json(user);
+    return res.status(200).json(user);
   }),
   user: tryCatch(async (req, res) => {
     const user = await User.findById(req.user);
 
     // console.log(req);
 
-    return res.json(user);
+    return res.status(200).json(user);
   }),
 };

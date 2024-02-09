@@ -8,7 +8,7 @@ const dbConnect = require("./config/DBconnect");
 
 const expressSession = require("express-session");
 const MongoStore = require("connect-mongo");
-const session = require("./models/session");
+const sessions = require("./models/session");
 const crypto = require("crypto");
 const uuid = require("node-uuid");
 
@@ -41,14 +41,13 @@ app.use(
     store: MongoStore.create({
       mongoUrl: process.env.DB_URI,
       mongooseConnection: mongoose.connection,
+      collectionName: "sessions",
     }),
     genid: function (req) {
       return uuid.v1();
     },
     cookie: {
-      maxAge: 60 * 60 * 1000,
-      // domain:
-      //   process.env.NODE_ENV === "production" ? "next-ecmrc.com" : "localhost",
+      maxAge: process.env.MAX_Age * 1,
       sameSite: "Lax", // Set SameSite attribute to Lax
     },
   })
