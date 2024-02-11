@@ -43,8 +43,10 @@ module.exports = {
 
     const token = await jwt.sign({ id: user._id }, process.env.SECRET);
 
-    let expiry = new Date();
-    expiry.setDate(expiry.getDate() + process.env.MAX_Age);
+    let currentDate = new Date();
+
+    let expiry = new Date(currentDate.getTime() + process.env.MAX_Age * 1);
+
     await Session.create({
       user: user.id,
       sessionId: req.session.id,
